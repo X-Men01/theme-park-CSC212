@@ -1,4 +1,4 @@
-public class regInfo{
+public class regInfo {
     private int region;
     private vistorType[] vtype;
 
@@ -9,11 +9,22 @@ public class regInfo{
         vtype[1] = new vistorType(1); // vips
     }
 
+    public void insertIntoRegInfo(vistorInfo v) {
+        if (v.isVip())
+            vtype[1].insert(v);
+        else
+            vtype[0].insert(v);
+    }
+
     public int getRegion() {
         return region;
     }
 
     public int getTotalVistors() {
         return vtype[0].getNumOfVistor() + vtype[1].getNumOfVistor();
+    }
+
+    public int getTotalVIPs() {
+        return vtype[1].getNumOfVistor();
     }
 }
