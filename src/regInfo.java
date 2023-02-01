@@ -1,3 +1,4 @@
+package src;
 public class regInfo {
     private int region;
     private vistorType[] vtype;

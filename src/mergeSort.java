@@ -1,9 +1,6 @@
+package src;
 public class mergeSort {
 
-    public mergeSort(regInfo[] reg) {
-        sort(reg);
-
-    }
 
     private void merge(regInfo[] a, regInfo[] aux, int lo, int mid, int hi) {
 
@@ -34,7 +31,7 @@ public class mergeSort {
         merge(a, aux, lo, mid, hi);
     }
 
-    private void sort(regInfo[] a) {
+    public void sort(regInfo[] a) {
         regInfo[] aux = new regInfo[a.length];
         sort(a, aux, 0, a.length - 1);
     }

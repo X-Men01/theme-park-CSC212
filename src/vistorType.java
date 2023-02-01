@@ -1,3 +1,4 @@
+package src;
 public class vistorType {
     private int type;
     private LinkedList<vistorInfo> vistorList;

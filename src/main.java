@@ -1,10 +1,11 @@
+package src;
 import java.io.FileNotFoundException;
 
 public class main {
     public static void main(String[] args) throws FileNotFoundException {
 
         ThemeParkADT park = new ThemeParkADT(10);
-        park.readFileAndAnalyse("/Users/ahmedalkhulayfi/Desktop/into.txt");
+        park.readFileAndAnalyse("info.txt");
 
         park.searchVisitor("AlAli");
         System.out.println("**************************************************************");
