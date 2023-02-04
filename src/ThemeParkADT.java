@@ -1,4 +1,5 @@
 package src;
+
 import java.io.FileNotFoundException;
 
 public class ThemeParkADT {
@@ -81,10 +82,7 @@ public class ThemeParkADT {
                 else
                     vistor2 = v;
         }
-        if (vistor1 == null || vistor2 == null || vistor1.getRegion() != vistor2.getRegion())
-            return false;
-
-        return vistor1.getOrder().sameOrder(vistor2.getOrder());
+        return printReasonVIP(vistor1, vistor2, n1, n2);
     }
 
     // operation 7
@@ -97,11 +95,8 @@ public class ThemeParkADT {
                 else
                     vistor2 = v;
         }
-        if (vistor1 == null || vistor2 == null || vistor1.getRegion() != r || vistor2.getRegion() != r
-                || vistor1.isVip() || vistor2.isVip())
-            return false;
 
-        return vistor1.getOrder().sameOrder(vistor2.getOrder());
+        return  printReasonReg(vistor1, vistor2, n1, n2);
     }
 
     private void inserIntoRegionArray(vistorInfo newVistor, int indexOfRegion) {
@@ -129,5 +124,34 @@ public class ThemeParkADT {
     private void sortRegions(regInfo[] regSortedArray) {
         mergeSort m = new mergeSort();
         m.sort(regSortedArray);
+    }
+
+    private boolean printReasonVIP(vistorInfo vistor1, vistorInfo vistor2, String n1, String n2) {
+        boolean flag = false;
+        if (vistor1 == null)
+            System.out.println("The given number is not VIP vistor: " + n1);
+        else if (vistor2 == null)
+            System.out.println("The given number is not VIP vistor: " + n2);
+        else if (vistor1.getRegion() != vistor2.getRegion())
+            System.out.println("The two vistor are not from the same region");
+        else if (vistor1.getLocation() != vistor2.getLocation())
+            System.out.println("The two vistor are not in the same Kingdom");
+        else
+            flag = true;  
+         return flag;     
+    }
+    private boolean printReasonReg(vistorInfo vistor1, vistorInfo vistor2, String n1, String n2) {
+        boolean flag = false;
+        if (vistor1 == null)
+            System.out.println("The given number is not regular vistor: " + n1);
+        else if (vistor2 == null)
+            System.out.println("The given number is not regular vistor: " + n2);
+        else if (vistor1.getRegion() != vistor2.getRegion())
+            System.out.println("The two vistor are not from the same region");
+        else if (vistor1.getOrder().sameOrder(vistor2.getOrder()))
+            System.out.println("The two vistor did not visit the kingdoms in the same order");
+        else
+            flag = true;  
+         return flag;     
     }
 }
