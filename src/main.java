@@ -1,16 +1,17 @@
 package src;
 import java.io.FileNotFoundException;
 
-public class main {
+public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
-        ThemeParkADT park = new ThemeParkADT(10);
+        ThemeParkADT park = new ThemeParkADT();
         park.readFileAndAnalyse("info.txt");
+
 
         park.searchVisitor("AlAli");
         System.out.println("**************************************************************");
-        System.out.println("**************************************************************");
         park.rgnCount();
+        System.out.println("**************************************************************");
         park.popularRgn();
         System.out.println("**************************************************************");
         park.vipRgn(1);

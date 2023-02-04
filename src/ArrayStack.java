@@ -15,7 +15,7 @@ public class ArrayStack<T> {
     public T pop() {
         if (!isEmpty()) {
             size--;
-            return nodes[--top];
+            return nodes[top--];
         }
 
         return null;

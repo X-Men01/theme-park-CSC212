@@ -6,15 +6,15 @@ public class regInfo {
     public regInfo(int region) {
         this.region = region;
         vtype = new vistorType[2];
-        vtype[0] = new vistorType(0);// regular
-        vtype[1] = new vistorType(1); // vips
+        vtype[0] = new vistorType(0);// vips
+        vtype[1] = new vistorType(1);  // regular
     }
 
     public void insertIntoRegInfo(vistorInfo v) {
         if (v.isVip())
-            vtype[1].insert(v);
-        else
             vtype[0].insert(v);
+        else
+            vtype[1].insert(v);
     }
 
     public int getRegion() {
@@ -26,6 +26,10 @@ public class regInfo {
     }
 
     public int getTotalVIPs() {
-        return vtype[1].getNumOfVistor();
+        return vtype[0].getNumOfVistor();
+    }
+    @Override
+    public String toString() {
+        return "Region #" + region +" # Of Vipes "+ vtype[0].getNumOfVistor() + " # Reger " +vtype[1].getNumOfVistor()  ;
     }
 }

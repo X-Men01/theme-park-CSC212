@@ -7,8 +7,7 @@ public class ThemeParkADT {
     private LinkedList<vistorInfo> visitors, vips;
     private int numOfregions;
 
-    public ThemeParkADT(int k) {
-        regionArray = new regInfo[k];
+    public ThemeParkADT() {
         vips = new LinkedList<vistorInfo>();
         visitors = new LinkedList<vistorInfo>();
     }
@@ -21,7 +20,7 @@ public class ThemeParkADT {
             System.out.println("The file does not exist");
             return;
         }
-
+        int maxIndex = 0;
         while (processor.hasNextVistor()) {
             vistorInfo newVistor = processor.CreatVistor();
             visitors.insert(newVistor);
@@ -29,11 +28,11 @@ public class ThemeParkADT {
             if (newVistor.isVip())
                 vips.insert(newVistor);
 
-            int indexOfRegion = serachForRegion(newVistor.getRegion());
+            if (newVistor.getRegion() > maxIndex)
+                maxIndex = newVistor.getRegion();
 
-            inserIntoRegionArray(newVistor, indexOfRegion);
         }
-
+        inserIntoRegionArray(maxIndex);
         createAndCopyIntoRegSortedArray();
         sortRegions(regSortedArray);
     }
@@ -59,9 +58,9 @@ public class ThemeParkADT {
 
     // operation 4
     public void vipRgn(int i) {
-        if (i > 0 && i < numOfregions)
+        if (i > 0 && i < regionArray.length)
             System.out.println("The total number of VIP pass holders coming from Region " + i + " is "
-                    + regionArray[i - 1].getTotalVIPs());
+                    + regionArray[i].getTotalVIPs());
         else
             System.out.println("There no region with this number ");
     }
@@ -96,29 +95,32 @@ public class ThemeParkADT {
                     vistor2 = v;
         }
 
-        return  printReasonReg(vistor1, vistor2, n1, n2);
+        return printReasonReg(vistor1, vistor2, n1, n2);
     }
 
-    private void inserIntoRegionArray(vistorInfo newVistor, int indexOfRegion) {
-        if (indexOfRegion != -1)
-            regionArray[indexOfRegion].insertIntoRegInfo(newVistor);
-        else {
-            regionArray[numOfregions++] = new regInfo(newVistor.getRegion());
-            regionArray[numOfregions - 1].insertIntoRegInfo(newVistor);
+    private void inserIntoRegionArray(int k) {
+        regionArray = new regInfo[k + 1];
+        for (vistorInfo v : visitors) {
+            int indexOfRegion = v.getRegion();
+            if (regionArray[indexOfRegion] != null)
+                regionArray[indexOfRegion].insertIntoRegInfo(v);
+            else {
+                regionArray[indexOfRegion] = new regInfo(v.getRegion());
+                regionArray[indexOfRegion].insertIntoRegInfo(v);
+                numOfregions++;
+            }
         }
-    }
 
-    private int serachForRegion(int region) {
-        for (int i = 0; i < numOfregions; i++)
-            if (regionArray[i].getRegion() == region)
-                return i;
-        return -1;
     }
 
     private void createAndCopyIntoRegSortedArray() {
         regSortedArray = new regInfo[numOfregions];
-        for (int i = 0; i < numOfregions; i++)
-            regSortedArray[i] = regionArray[i];
+        int j = 0;
+        for (int i = 0; i < regionArray.length; i++) {
+            if (regionArray[i] != null)
+                regSortedArray[j++] = regionArray[i];
+        }
+
     }
 
     private void sortRegions(regInfo[] regSortedArray) {
@@ -137,9 +139,10 @@ public class ThemeParkADT {
         else if (vistor1.getLocation() != vistor2.getLocation())
             System.out.println("The two vistor are not in the same Kingdom");
         else
-            flag = true;  
-         return flag;     
+            flag = true;
+        return flag;
     }
+
     private boolean printReasonReg(vistorInfo vistor1, vistorInfo vistor2, String n1, String n2) {
         boolean flag = false;
         if (vistor1 == null)
@@ -151,7 +154,8 @@ public class ThemeParkADT {
         else if (vistor1.getOrder().sameOrder(vistor2.getOrder()))
             System.out.println("The two vistor did not visit the kingdoms in the same order");
         else
-            flag = true;  
-         return flag;     
+            flag = true;
+        return flag;
     }
+
 }

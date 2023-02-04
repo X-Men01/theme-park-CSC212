@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ProcessVisitors {
     private final int maxNumberOfKingdoms = 4;
     private Pattern regexVistor = Pattern
-            .compile("(?<fName>[^,]*),(?<lName>[^,]*),(?<region>\\d),(?<type>\\d),(?<phone>\\d{10}),(?<order>[0-9,]*)");
+            .compile("(?<fName>[^,]*),(?<lName>[^,]*),(?<region>\\d+),(?<type>\\d),(?<phone>\\d{10}),(?<order>[0-9,]*)");
     private Matcher mat;
     private Scanner sc;
     private File file;
